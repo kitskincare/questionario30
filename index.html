@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questionário Skincare</title>
+  <style>
+    /* Reset e configuração básica */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
+      overflow-y: auto;
+      font-family: "Goudy Old Style", serif;
+    }
+    body {
+      background: url('imagens/fundo.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    /* Container centralizado com fundo semi-transparente */
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 800px;
+      text-align: center;
+      margin: auto;
+    }
+    h2 {
+      margin-bottom: 15px;
+    }
+    p {
+      margin-bottom: 15px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    input[type="text"],
+    input[type="email"] {
+      padding: 10px;
+      font-size: 16px;
+      width: 90%;
+      margin-bottom: 10px;
+    }
+    .option {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      margin: 10px 0;
+    }
+    .option img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+    /* Contêiner de alternativas com rolagem */
+    #optionsContainer {
+      max-height: 400px; /* Defina a altura máxima desejada */
+      overflow-y: auto;
+      margin: 10px 0;
+    }
+    /* Oculta seções que não estão ativas */
+    .page {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    /* Media Queries para dispositivos móveis */
+    @media (max-width: 480px) {
+      .container {
+        max-width: 100%;
+        padding: 20px;
+      }
+      button {
+        padding: 10px 20px;
+        font-size: 14px;
+      }
+      .option img {
+        width: 70px;
+        height: 70px;
+      }
+      input[type="text"],
+      input[type="email"] {
+        font-size: 14px;
+      }
+      #optionsContainer {
+        max-height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Página 1: Apresentação -->
+  <section id="page1" class="page active">
+    <div class="container">
+      <p>
+        Qual a rotina de skincare ideal para a sua pele? Faça um teste agora, descubra seu tipo de pele e a rotina ideal para ela! É rapidinho.
+      </p>
+      <button onclick="goToPage(2)">Iniciar</button>
+    </div>
+  </section>
+
+  <!-- Página 2: Nome -->
+  <section id="page2" class="page">
+    <div class="container">
+      <h2>Qual nome devemos te chamar?</h2>
+      <input type="text" id="userName" placeholder="Digite seu nome">
+      <br>
+      <button onclick="goToPage(3)">Próximo</button>
+    </div>
+  </section>
+
+  <!-- Página 3: Idade -->
+  <section id="page3" class="page">
+    <div class="container">
+      <h2>Qual a sua idade?</h2>
+      <form id="formAge">
+        <div>
+          <input type="radio" name="age" id="age1" value="Menos de 18 anos">
+          <label for="age1">Menos de 18 anos</label>
+        </div>
+        <div>
+          <input type="radio" name="age" id="age2" value="18 a 24 anos">
+          <label for="age2">18 a 24 anos</label>
+        </div>
+        <div>
+          <input type="radio" name="age" id="age3" value="25 a 29 anos">
+          <label for="age3">25 a 29 anos</label>
+        </div>
+        <div>
+          <input type="radio" name="age" id="age4" value="30 a 39 anos">
+          <label for="age4">30 a 39 anos</label>
+        </div>
+        <div>
+          <input type="radio" name="age" id="age5" value="40 a 49 anos">
+          <label for="age5">40 a 49 anos</label>
+        </div>
+        <div>
+          <input type="radio" name="age" id="age6" value="50 a 59 anos">
+          <label for="age6">50 a 59 anos</label>
+        </div>
+        <div>
+          <input type="radio" name="age" id="age7" value="60 +">
+          <label for="age7">60 +</label>
+        </div>
+      </form>
+      <button onclick="goToPage(4)">Próximo</button>
+    </div>
+  </section>
+
+  <!-- Página 4: Dica para identificar o tipo de pele -->
+  <section id="page4" class="page">
+    <div class="container">
+      <p>Vamos te ajudar a identificar seu tipo de pele caso tenha dúvidas</p>
+      <p style="font-size: 14px;">
+        Dica: Para descobrir seu tipo de pele, lave o rosto com um sabonete neutro e espere 30 minutos sem aplicar nenhum produto. Observe como a pele reage: se ficar brilhante, é oleosa; se repuxar, é seca; se houver brilho na zona T e ressecamento nas laterais, é mista; e se houver vermelhidão ou irritação, é sensível.
+      </p>
+      <button onclick="goToPage(5)">Próximo</button>
+    </div>
+  </section>
+
+  <!-- Página 5: Tipo de pele -->
+  <section id="page5" class="page">
+    <div class="container">
+      <h2>Qual o seu tipo de pele?</h2>
+      <form id="formSkinType">
+        <div class="option">
+          <img src="imagens/imagem1.jpg" alt="Imagem 1">
+          <input type="radio" name="skinType" id="normal1" value="normal">
+          <label for="normal1">Normal</label>
+        </div>
+        <div class="option">
+          <img src="imagens/imagem2.jpg" alt="Imagem 2">
+          <input type="radio" name="skinType" id="seca" value="seca">
+          <label for="seca">Seca</label>
+        </div>
+        <div class="option">
+          <img src="imagens/imagem3.jpg" alt="Imagem 3">
+          <input type="radio" name="skinType" id="oleosa" value="oleosa">
+          <label for="oleosa">Oleosa</label>
+        </div>
+        <div class="option">
+          <img src="imagens/imagem4.jpg" alt="Imagem 4">
+          <input type="radio" name="skinType" id="mista" value="mista">
+          <label for="mista">Mista</label>
+        </div>
+        <div class="option">
+          <img src="imagens/imagem5.jpg" alt="Imagem 5">
+          <input type="radio" name="skinType" id="sensivel" value="sensivel">
+          <label for="sensivel">Sensível</label>
+        </div>
+      </form>
+      <button onclick="goToPage(6)">Próximo</button>
+    </div>
+  </section>
+
+  <!-- Página 6: Desafio da pele (opções variáveis) -->
+  <section id="page6" class="page">
+    <div class="container">
+      <h2>Qual o desafio da sua pele?</h2>
+      <form id="formChallenge">
+        <div id="optionsContainer">
+          <!-- As opções serão inseridas dinamicamente via JavaScript -->
+        </div>
+      </form>
+      <button onclick="goToPage(7)">Gerar Kit Skincare Ideal</button>
+    </div>
+  </section>
+
+  <!-- Página 7: Link final para o kit -->
+  <section id="page7" class="page">
+    <div class="container">
+      <h2>Adquira Kit ideal para a sua pele</h2>
+      <div id="resultLink">
+        <!-- O botão com o link será gerado aqui -->
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Variáveis para armazenar respostas
+    let userName = "";
+    let skinType = "";
+    let challenge = "";
+
+    // Função para transição entre páginas
+    function goToPage(pageNumber) {
+      if(pageNumber === 3) {
+        userName = document.getElementById("userName").value;
+      }
+      if(pageNumber === 6) {
+        const skinTypeElement = document.querySelector('input[name="skinType"]:checked');
+        if (skinTypeElement) {
+          skinType = skinTypeElement.value;
+          loadChallengeOptions(skinType);
+        } else {
+          alert("Selecione o seu tipo de pele!");
+          return;
+        }
+      }
+      if(pageNumber === 7) {
+        const challengeElement = document.querySelector('input[name="challenge"]:checked');
+        if (challengeElement) {
+          challenge = challengeElement.value;
+          generateResult();
+        } else {
+          alert("Selecione o desafio da sua pele!");
+          return;
+        }
+      }
+      document.querySelectorAll(".page").forEach(page => page.classList.remove("active"));
+      document.getElementById("page" + pageNumber).classList.add("active");
+    }
+
+    // Função para carregar as opções da página 6 conforme o tipo de pele
+    function loadChallengeOptions(type) {
+      const container = document.getElementById("optionsContainer");
+      container.innerHTML = "";
+      let options = [];
+      if(type === "normal") {
+        options = [
+          { value: "rugas", text: "Rugas / Linhas de expressão / Flacidez do rosto", img: "imagens/imagem8.jpg" },
+          { value: "manchas", text: "Manchas escuras / Melasma / Cicatrizes de acne", img: "imagens/imagem10.jpg" },
+          { value: "textura", text: "Textura irregular", img: "imagens/imagem14.jpg" },
+          { value: "olheiras", text: "Olheiras / Bolsas abaixo dos olhos", img: "imagens/imagem15.jpg" },
+          { value: "cuidados", text: "Iniciar / Manter os cuidados com a pele", img: "imagens/imagem17.jpg" }
+        ];
+      } else if(type === "seca") {
+        options = [
+          { value: "rugas", text: "Rugas / Linhas de expressão / Flacidez do rosto", img: "imagens/imagem8.jpg" },
+          { value: "manchas", text: "Manchas escuras / Melasma / Cicatrizes de acne", img: "imagens/imagem10.jpg" },
+          { value: "ressecamento", text: "Ressecamento / descamação", img: "imagens/imagem12.jpg" },
+          { value: "textura", text: "Textura irregular", img: "imagens/imagem14.jpg" },
+          { value: "olheiras", text: "Olheiras / Bolsas abaixo dos olhos", img: "imagens/imagem15.jpg" },
+          { value: "cuidados", text: "Iniciar / Manter os cuidados com a pele", img: "imagens/imagem17.jpg" }
+        ];
+      } else if(type === "oleosa") {
+        options = [
+          { value: "acne", text: "Acne", img: "imagens/imagem6.jpg" },
+          { value: "oleosidade", text: "oleosidade/excesso de brilho", img: "imagens/imagem3.jpg" },
+          { value: "rugas", text: "Rugas / Linhas de expressão / Flacidez do rosto", img: "imagens/imagem8.jpg" },
+          { value: "manchas", text: "Manchas escuras / Melasma / Cicatrizes de acne", img: "imagens/imagem10.jpg" },
+          { value: "poros", text: "Poros dilatados", img: "imagens/imagem13.jpg" },
+          { value: "textura", text: "Textura irregular", img: "imagens/imagem14.jpg" },
+          { value: "olheiras", text: "Olheiras / Bolsas abaixo dos olhos", img: "imagens/imagem15.jpg" },
+          { value: "cuidados", text: "Iniciar / Manter os cuidados com a pele", img: "imagens/imagem17.jpg" }
+        ];
+      } else if(type === "mista") {
+        options = [
+          { value: "oleosidade", text: "oleosidade/excesso de brilho", img: "imagens/imagem3.jpg" },
+          { value: "rugas", text: "Rugas / Linhas de expressão / Flacidez do rosto", img: "imagens/imagem8.jpg" },
+          { value: "manchas", text: "Manchas escuras / Melasma / Cicatrizes de acne", img: "imagens/imagem10.jpg" },
+          { value: "poros", text: "Poros dilatados", img: "imagens/imagem13.jpg" },
+          { value: "textura", text: "Textura irregular", img: "imagens/imagem14.jpg" },
+          { value: "olheiras", text: "Olheiras / Bolsas abaixo dos olhos", img: "imagens/imagem15.jpg" },
+          { value: "cuidados", text: "Iniciar / Manter os cuidados com a pele", img: "imagens/imagem17.jpg" }
+        ];
+      } else if(type === "sensivel") {
+        options = [
+          { value: "rugas", text: "Rugas / Linhas de expressão / Flacidez do rosto", img: "imagens/imagem8.jpg" },
+          { value: "rosacea", text: "Rosácea / Sensibilidade extrema / Irritação recorrente", img: "imagens/imagem5.jpg" },
+          { value: "manchas", text: "Manchas escuras / Melasma / Cicatrizes de acne", img: "imagens/imagem10.jpg" },
+          { value: "poros", text: "Poros dilatados", img: "imagens/imagem13.jpg" },
+          { value: "textura", text: "Textura irregular", img: "imagens/imagem14.jpg" },
+          { value: "olheiras", text: "Olheiras / Bolsas abaixo dos olhos", img: "imagens/imagem15.jpg" },
+          { value: "cuidados", text: "Iniciar / Manter os cuidados com a pele", img: "imagens/imagem17.jpg" }
+        ];
+      }
+      options.forEach((opt, index) => {
+        const div = document.createElement("div");
+        div.className = "option";
+        const img = document.createElement("img");
+        img.src = opt.img;
+        img.alt = "Opção " + (index+1);
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "challenge";
+        radio.id = "challenge" + index;
+        radio.value = opt.value;
+        const label = document.createElement("label");
+        label.htmlFor = "challenge" + index;
+        label.innerText = opt.text;
+        div.appendChild(img);
+        div.appendChild(radio);
+        div.appendChild(label);
+        container.appendChild(div);
+      });
+    }
+
+    function generateResult() {
+      const resultDiv = document.getElementById("resultLink");
+      resultDiv.innerHTML = "";
+      let btnText = "";
+      let link = "";
+      
+      if(skinType === "normal"){
+        if(challenge === "rugas"){
+          btnText = "KIT SKINCARE PELE NORMAL/RUGAS";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c6fe5c94d07342";
+        } else if(challenge === "manchas"){
+          btnText = "KIT SKINCARE PELE NORMAL/MANCHAS";
+          link = "https://www.bioage.com.br/professional/cart/create?code=ce024bba0a06f4";
+        } else if(challenge === "textura"){
+          btnText = "KIT SKINCARE PELE NORMAL/TEXTURA IRREGULAR";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c9177722052e73";
+        } else if(challenge === "olheiras"){
+          btnText = "KIT SKINCARE PELE NORMAL/OLHEIRAS/BOLSAS";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c099b95cfbc592";
+        } else if(challenge === "cuidados"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cb488123148ae3";
+        }
+      } else if(skinType === "seca"){
+        if(challenge === "rugas"){
+          btnText = "KIT SKINCARE PELE SECA/RUGAS";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c27058bf5435c0";
+        } else if(challenge === "manchas"){
+          btnText = "KIT SKINCARE PELE SECA/MANCHAS";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c576effffa9d44";
+        } else if(challenge === "textura"){
+          btnText = "KIT SKINCARE PELE SECA/TEXTURA IRREGULAR";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c82c339b452790";
+        } else if(challenge === "olheiras"){
+          btnText = "KIT SKINCARE PELE SECA/OLHEIRAS/BOLSAS";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c0da964a3bc0f3";
+        } else if(challenge === "cuidados"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=ca00d8b5b4709f";
+        }
+      } else if(skinType === "oleosa"){
+        if(challenge === "manchas"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c0a6edd71b61fb";
+        } else if(challenge === "acne"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c9c716fee63cf4";
+        } else if(challenge === "oleosidade"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=ca378940a8b552";
+        } else if(challenge === "rugas"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cf96738128ecad";
+        } else if(challenge === "poros"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=caeea137bf61a5";
+        } else if(challenge === "textura"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cef863bc962f6d";
+        } else if(challenge === "olheiras"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cc52a91094d4a2";
+        } else if(challenge === "cuidados"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cef5018b3aa123";
+        }
+      } else if(skinType === "mista"){
+        if(challenge === "oleosidade"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c07841a948d85c";
+        } else if(challenge === "rugas"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=ce2897f4a7eee0";
+        } else if(challenge === "manchas"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cc15b9d91ebbde";
+        } else if(challenge === "poros"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cbcd1f47617180";
+        } else if(challenge === "textura"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c8b69a2f725164";
+        } else if(challenge === "olheiras"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cdef8bc97a0935";
+        } else if(challenge === "cuidados"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c7dd96a899d299";
+        }
+      } else if(skinType === "sensivel"){
+        if(challenge === "rugas"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cfb6bed417d8d5";
+        } else if(challenge === "rosacea"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c48d67f007290f";
+        } else if(challenge === "manchas"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cbc61faa787a30";
+        } else if(challenge === "poros"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cb1c59c359e459";
+        } else if(challenge === "textura"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c58c0ee072bbda";
+        } else if(challenge === "olheiras"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=c429915e2d7fc0";
+        } else if(challenge === "cuidados"){
+          btnText = "INICIAR/MANTER OS CUIDADOS COM A PELE";
+          link = "https://www.bioage.com.br/professional/cart/create?code=cd29031912d0d7";
+        }
+      }
+      const btn = document.createElement("a");
+      btn.href = link;
+      btn.innerText = btnText;
+      btn.style.display = "inline-block";
+      btn.style.padding = "12px 24px";
+      btn.style.backgroundColor = "#007BFF";
+      btn.style.color = "#fff";
+      btn.style.textDecoration = "none";
+      btn.style.borderRadius = "5px";
+      resultDiv.appendChild(btn);
+    }
+  </script>
+</body>
+</html>
+
