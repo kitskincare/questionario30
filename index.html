@@ -62,13 +62,13 @@
       object-fit: cover;
       margin-right: 10px;
     }
-    /* Para o contêiner de opções de desafios (página 6) */
+    /* Contêiner para opções de desafios com rolagem (página 6) */
     #optionsContainer {
       max-height: 400px;
       overflow-y: auto;
       margin: 10px 0;
     }
-    /* Oculta seções que não estão ativas */
+    /* Oculta seções (páginas) não ativas */
     .page {
       display: none;
     }
@@ -80,7 +80,7 @@
       background-color: black;
       color: white;
     }
-    /* Página 8: fundo será definido dinamicamente conforme o kit */
+    /* Página 8: o fundo será definido dinamicamente */
   </style>
 </head>
 <body class="default-bg">
@@ -147,27 +147,27 @@
       <h2>Qual o seu tipo de pele?</h2>
       <form id="formSkinType">
         <div class="option">
-          <img src="imagens/imagem1.jpg" alt="Imagem 1">
+          <img src="imagens/imagem1.jpg" alt="Normal">
           <input type="radio" name="skinType" id="normal" value="normal" required>
           <label for="normal">Normal</label>
         </div>
         <div class="option">
-          <img src="imagens/imagem2.jpg" alt="Imagem 2">
+          <img src="imagens/imagem2.jpg" alt="Seca">
           <input type="radio" name="skinType" id="seca" value="seca">
           <label for="seca">Seca</label>
         </div>
         <div class="option">
-          <img src="imagens/imagem3.jpg" alt="Imagem 3">
+          <img src="imagens/imagem3.jpg" alt="Oleosa">
           <input type="radio" name="skinType" id="oleosa" value="oleosa">
           <label for="oleosa">Oleosa</label>
         </div>
         <div class="option">
-          <img src="imagens/imagem4.jpg" alt="Imagem 4">
+          <img src="imagens/imagem4.jpg" alt="Mista">
           <input type="radio" name="skinType" id="mista" value="mista">
           <label for="mista">Mista</label>
         </div>
         <div class="option">
-          <img src="imagens/imagem5.jpg" alt="Imagem 5">
+          <img src="imagens/imagem5.jpg" alt="Sensível">
           <input type="radio" name="skinType" id="sensivel" value="sensivel">
           <label for="sensivel">Sensível</label>
         </div>
@@ -176,7 +176,7 @@
     </div>
   </section>
 
-  <!-- Página 6: Desafio da pele (opções dinâmicas) -->
+  <!-- Página 6: Desafio da pele -->
   <section id="page6" class="page">
     <div class="container">
       <h2>Qual o desafio da sua pele?</h2>
@@ -189,7 +189,7 @@
     </div>
   </section>
 
-  <!-- Página 7: Carregamento -->
+  <!-- Página 7: Carregamento (fundo preto) -->
   <section id="page7" class="page page7">
     <div class="container">
       <p>Estamos desenvolvendo o Kit perfeito para sua rotina Skincare...</p>
@@ -210,11 +210,12 @@
     let skinType = "";
     let challenge = "";
 
+    // Função para navegação entre páginas
     function goToPage(pageNumber) {
+      console.log("Indo para a página " + pageNumber);
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
       document.getElementById('page' + pageNumber).classList.add('active');
-
-      // Para a página 7, aguarda 4 segundos e vai para a página 8
+      // Se for a página 7, aguarda 4 segundos e vai para a página 8
       if (pageNumber === 7) {
         setTimeout(() => {
           goToPage(8);
@@ -250,10 +251,19 @@
         return;
       }
       skinType = skinTypeElement.value;
-      // Preenche o campo oculto na página 6 para manter o skinType
       document.getElementById("hiddenSkinType").value = skinType;
       goToPage(pageNumber);
       loadChallengeOptions(skinType);
+    }
+
+    function saveChallengeAndGoToPage(pageNumber) {
+      const challengeElement = document.querySelector('input[name="challenge"]:checked');
+      if (!challengeElement) {
+        alert("Selecione o desafio da sua pele!");
+        return;
+      }
+      challenge = challengeElement.value;
+      goToPage(pageNumber);
     }
 
     function loadChallengeOptions(type) {
@@ -309,8 +319,6 @@
           { value: "cuidados", text: "Iniciar / Manter os cuidados com a pele", img: "imagens/imagem17.jpg" }
         ];
       }
-      const container = document.getElementById("optionsContainer");
-      container.innerHTML = "";
       options.forEach((opt, index) => {
         const div = document.createElement("div");
         div.className = "option";
@@ -323,19 +331,7 @@
       });
     }
 
-    function saveChallengeAndGoToPage(pageNumber) {
-      const challengeElement = document.querySelector('input[name="challenge"]:checked');
-      if (!challengeElement) {
-        alert("Selecione o desafio da sua pele!");
-        return;
-      }
-      challenge = challengeElement.value;
-      goToPage(pageNumber);
-    }
-
-    // Função para gerar o resultado na página 8 com base nas respostas
     function generateResult() {
-      // Define a URL base e o mapeamento de combinações
       const baseUrl = "https://www.bioage.com.br/professional/cart/create?code=";
       const resultMapping = {
         "normal:rugas": { code: "c6fe5c94d07342", btnText: "KIT SKINCARE PELE NORMAL/RUGAS", fundo: "imagens/fundo1.jpg" },
@@ -380,8 +376,8 @@
       resultContainer.innerHTML = "";
 
       if (result) {
-        // Define o fundo da página 8 de acordo com o kit
-        document.body.className = ""; // Remove o fundo padrão
+        // Remove o fundo padrão e define o fundo dinâmico para a página 8
+        document.body.className = ""; 
         document.body.style.background = `url('${result.fundo}') no-repeat center center fixed`;
         document.body.style.backgroundSize = "cover";
         // Cria o botão com o link
@@ -397,8 +393,16 @@
 
     // Função para navegação entre páginas
     function goToPage(pageNumber) {
+      console.log("Indo para a página " + pageNumber);
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
       document.getElementById('page' + pageNumber).classList.add('active');
+      // Se for a página 7, aguarda 4 segundos e depois gera o resultado e vai para a página 8
+      if (pageNumber === 7) {
+        setTimeout(() => {
+          goToPage(8);
+          generateResult();
+        }, 4000);
+      }
     }
 
     // Funções para salvar respostas e avançar
@@ -425,11 +429,10 @@
     function saveSkinTypeAndGoToPage(pageNumber) {
       const skinTypeElement = document.querySelector('input[name="skinType"]:checked');
       if (!skinTypeElement) {
-        alert("Selecione seu tipo de pele!");
+        alert("Selecione o seu tipo de pele!");
         return;
       }
       skinType = skinTypeElement.value;
-      // Preenche o campo oculto na página 6
       document.getElementById("hiddenSkinType").value = skinType;
       goToPage(pageNumber);
       loadChallengeOptions(skinType);
@@ -443,16 +446,9 @@
       }
       challenge = challengeElement.value;
       goToPage(pageNumber);
-      // Se for a página 7, inicia o carregamento (neste fluxo, a página 7 exibe o carregamento por 4 segundos e depois avança para a 8)
-      if (pageNumber === 7) {
-        setTimeout(() => { 
-          goToPage(8);
-          generateResult();
-        }, 4000);
-      }
     }
 
-    // Variáveis globais para armazenar respostas
+    // Variáveis globais
     let userName = "";
     let age = "";
     let skinType = "";
