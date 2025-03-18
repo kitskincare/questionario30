@@ -61,7 +61,7 @@
       justify-content: flex-start;
     }
     .option img {
-      width: 70px;
+      width: 80px;
       height: auto;
       object-fit: cover;
       margin-right: 10px;
@@ -80,6 +80,20 @@
     .progress {
       margin: 10px;
       font-weight: bold;
+    }
+    /* Spinner de carregamento para a página 7 */
+    .spinner {
+      margin: 20px auto;
+      border: 8px solid #f3f3f3; /* cor clara */
+      border-top: 8px solid #3498db; /* cor destacada */
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
   </style>
 </head>
@@ -197,9 +211,11 @@
     <button onclick="generateKit()">Gerar Kit Skincare Ideal</button>
   </div>
 
-  <!-- Página 7 (Tela de espera com fundo preto) -->
+  <!-- Página 7 (Tela de espera com fundo preto e animação de carregamento) -->
   <div id="page7" class="container fade hidden" style="background-color: black; color: white;">
     <div class="box" style="background-color: rgba(0,0,0,0.8);">
+      <!-- Spinner de carregamento -->
+      <div class="spinner"></div>
       <p>Estamos desenvolvendo o Kit perfeito para sua rotina Skincare...</p>
     </div>
   </div>
@@ -342,6 +358,76 @@
 
     // Mapeamento dos resultados para a página 8
     var resultsMapping = {
+        "normal": [
+          { text: "Rugas / Linhas de expressão / Flacidez do rosto", image: "imagem8.jpg", key: "rugas" },
+          { text: "Manchas escuras / Melasma / Cicatrizes de acne", image: "imagem10.jpg", key: "manchas" },
+          { text: "Textura irregular", image: "imagem14.jpg", key: "textura" },
+          { text: "Olheiras / Bolsas abaixo dos olhos", image: "imagem15.jpg", key: "olheiras" },
+          { text: "Iniciar / Manter os cuidados com a pele", image: "imagem17.jpg", key: "manter" }
+        ],
+        "seca": [
+          { text: "Rugas / Linhas de expressão / Flacidez do rosto", image: "imagem8.jpg", key: "rugas" },
+          { text: "Manchas escuras / Melasma / Cicatrizes de acne", image: "imagem10.jpg", key: "manchas" },
+          { text: "Ressecamento / descamação", image: "imagem12.jpg", key: "ressecamento" },
+          { text: "Textura irregular", image: "imagem14.jpg", key: "textura" },
+          { text: "Olheiras / Bolsas abaixo dos olhos", image: "imagem15.jpg", key: "olheiras" },
+          { text: "Iniciar / Manter os cuidados com a pele", image: "imagem17.jpg", key: "manter" }
+        ],
+        "oleosa": [
+          { text: "Acne", image: "imagem6.jpg", key: "acne" },
+          { text: "oleosidade/excesso de brilho", image: "imagem3.jpg", key: "oleosidade" },
+          { text: "Rugas / Linhas de expressão / Flacidez do rosto", image: "imagem8.jpg", key: "rugas" },
+          { text: "Manchas escuras / Melasma / Cicatrizes de acne", image: "imagem10.jpg", key: "manchas" },
+          { text: "Poros dilatados", image: "imagem13.jpg", key: "poros" },
+          { text: "Textura irregular", image: "imagem14.jpg", key: "textura" },
+          { text: "Olheiras / Bolsas abaixo dos olhos", image: "imagem15.jpg", key: "olheiras" },
+          { text: "Iniciar / Manter os cuidados com a pele", image: "imagem17.jpg", key: "manter" }
+        ],
+        "mista": [
+          { text: "oleosidade/excesso de brilho", image: "imagem3.jpg", key: "oleosidade" },
+          { text: "Rugas / Linhas de expressão / Flacidez do rosto", image: "imagem8.jpg", key: "rugas" },
+          { text: "Manchas escuras / Melasma / Cicatrizes de acne", image: "imagem10.jpg", key: "manchas" },
+          { text: "Poros dilatados", image: "imagem13.jpg", key: "poros" },
+          { text: "Textura irregular", image: "imagem14.jpg", key: "textura" },
+          { text: "Olheiras / Bolsas abaixo dos olhos", image: "imagem15.jpg", key: "olheiras" },
+          { text: "Iniciar / Manter os cuidados com a pele", image: "imagem17.jpg", key: "manter" }
+        ],
+        "sensivel": [
+          { text: "Rugas / Linhas de expressão / Flacidez do rosto", image: "imagem8.jpg", key: "rugas" },
+          { text: "Rosácea / Sensibilidade extrema / Irritação recorrente", image: "imagem5.jpg", key: "rosacea" },
+          { text: "Manchas escuras / Melasma / Cicatrizes de acne", image: "imagem10.jpg", key: "manchas" },
+          { text: "Poros dilatados", image: "imagem13.jpg", key: "poros" },
+          { text: "Textura irregular", image: "imagem14.jpg", key: "textura" },
+          { text: "Olheiras / Bolsas abaixo dos olhos", image: "imagem15.jpg", key: "olheiras" },
+          { text: "Iniciar / Manter os cuidados com a pele", image: "imagem17.jpg", key: "manter" }
+        ]
+      };
+      const form = document.getElementById('challengeForm');
+      form.innerHTML = "";
+      challenges[skinType].forEach((option, index) => {
+        const div = document.createElement('div');
+        div.className = 'option';
+        div.style.marginBottom = "20px";
+        const input = document.createElement('input');
+        input.type = 'radio';
+        input.name = 'challenge';
+        input.value = option.key;
+        input.id = 'challenge' + index;
+        const img = document.createElement('img');
+        img.src = 'imagens/' + option.image;
+        img.alt = option.text;
+        const label = document.createElement('label');
+        label.htmlFor = input.id;
+        label.innerText = option.text;
+        div.appendChild(input);
+        div.appendChild(img);
+        div.appendChild(label);
+        form.appendChild(div);
+      });
+    }
+
+    // Mapeamento dos resultados para a página 8
+    var resultsMapping = {
       "normal": {
         "rugas": { buttonText: "KIT SKINCARE PELE NORMAL/RUGAS", url: "https://www.bioage.com.br/professional/cart/create?code=c6fe5c94d07342", bg: "imagens/fundo1.jpg" },
         "manchas": { buttonText: "KIT SKINCARE PELE NORMAL/MANCHAS", url: "https://www.bioage.com.br/professional/cart/create?code=ce024bba0a06f4", bg: "imagens/fundo2.jpg" },
@@ -385,7 +471,7 @@
         "olheiras": { buttonText: "KIT SKINCARE PELE OLHEIRAS/OLHEIRAS", url: "https://www.bioage.com.br/professional/cart/create?code=c429915e2d7fc0", bg: "imagens/fundo30.jpg" },
         "manter": { buttonText: "INICIAR/MANTER OS CUIDADOS COM A PELE", url: "https://www.bioage.com.br/professional/cart/create?code=cd29031912d0d7", bg: "imagens/fundo31.jpg" }
       }
-    };
+};
 
     // Função que é acionada ao clicar em "Gerar Kit Skincare Ideal"
     function generateKit() {
@@ -418,3 +504,4 @@
   </script>
 </body>
 </html>
+
