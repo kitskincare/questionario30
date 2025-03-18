@@ -53,17 +53,21 @@
       width: 80%;
       margin: 10px 0;
     }
+    /* Ajuste para alinhar alternativas verticalmente */
     .option {
       margin: 20px 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
     }
+    /* Imagens maiores e responsivas */
     .option img {
-      width: 50px;
-      height: 50px;
+      width: 100%;
+      max-width: 300px;
+      height: auto;
       object-fit: cover;
-      margin-right: 10px;
+      margin-bottom: 10px;
       transition: transform 0.2s;
     }
     .option:hover img {
