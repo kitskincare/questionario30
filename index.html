@@ -62,13 +62,12 @@
       object-fit: cover;
       margin-right: 10px;
     }
-    /* Contêiner para opções de desafios com rolagem (página 6) */
     #optionsContainer {
       max-height: 400px;
       overflow-y: auto;
       margin: 10px 0;
     }
-    /* Oculta seções (páginas) não ativas */
+    /* Oculta seções não ativas */
     .page {
       display: none;
     }
@@ -80,7 +79,7 @@
       background-color: black;
       color: white;
     }
-    /* Página 8: o fundo será definido dinamicamente */
+    /* Página 8: fundo será definido dinamicamente */
   </style>
 </head>
 <body class="default-bg">
@@ -147,27 +146,27 @@
       <h2>Qual o seu tipo de pele?</h2>
       <form id="formSkinType">
         <div class="option">
-          <img src="imagens/imagem1.jpg" alt="Normal">
+          <img src="imagens/imagem1.jpg" alt="Imagem 1">
           <input type="radio" name="skinType" id="normal" value="normal" required>
           <label for="normal">Normal</label>
         </div>
         <div class="option">
-          <img src="imagens/imagem2.jpg" alt="Seca">
+          <img src="imagens/imagem2.jpg" alt="Imagem 2">
           <input type="radio" name="skinType" id="seca" value="seca">
           <label for="seca">Seca</label>
         </div>
         <div class="option">
-          <img src="imagens/imagem3.jpg" alt="Oleosa">
+          <img src="imagens/imagem3.jpg" alt="Imagem 3">
           <input type="radio" name="skinType" id="oleosa" value="oleosa">
           <label for="oleosa">Oleosa</label>
         </div>
         <div class="option">
-          <img src="imagens/imagem4.jpg" alt="Mista">
+          <img src="imagens/imagem4.jpg" alt="Imagem 4">
           <input type="radio" name="skinType" id="mista" value="mista">
           <label for="mista">Mista</label>
         </div>
         <div class="option">
-          <img src="imagens/imagem5.jpg" alt="Sensível">
+          <img src="imagens/imagem5.jpg" alt="Imagem 5">
           <input type="radio" name="skinType" id="sensivel" value="sensivel">
           <label for="sensivel">Sensível</label>
         </div>
@@ -204,19 +203,19 @@
   </section>
 
   <script>
-    // Variáveis globais para armazenar respostas
+    // Variáveis globais (declaração única no início)
     let userName = "";
     let age = "";
     let skinType = "";
     let challenge = "";
+    const baseUrl = "https://www.bioage.com.br/professional/cart/create?code=";
 
-    // Função para navegação entre páginas
     function goToPage(pageNumber) {
       console.log("Indo para a página " + pageNumber);
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
       document.getElementById('page' + pageNumber).classList.add('active');
-      // Se for a página 7, aguarda 4 segundos e vai para a página 8
       if (pageNumber === 7) {
+        // Na página 7, aguarda 4 segundos e vai para a página 8, gerando o resultado
         setTimeout(() => {
           goToPage(8);
           generateResult();
@@ -332,7 +331,6 @@
     }
 
     function generateResult() {
-      const baseUrl = "https://www.bioage.com.br/professional/cart/create?code=";
       const resultMapping = {
         "normal:rugas": { code: "c6fe5c94d07342", btnText: "KIT SKINCARE PELE NORMAL/RUGAS", fundo: "imagens/fundo1.jpg" },
         "normal:manchas": { code: "ce024bba0a06f4", btnText: "KIT SKINCARE PELE NORMAL/MANCHAS", fundo: "imagens/fundo2.jpg" },
@@ -368,19 +366,15 @@
         "sensivel:cuidados": { code: "cd29031912d0d7", btnText: "INICIAR/MANTER OS CUIDADOS COM A PELE", fundo: "imagens/fundo31.jpg" }
       };
 
-      // Constrói a chave para o mapeamento
       const key = skinType + ":" + challenge;
       const result = resultMapping[key];
-
       const resultContainer = document.getElementById("resultContainer");
       resultContainer.innerHTML = "";
-
       if (result) {
-        // Remove o fundo padrão e define o fundo dinâmico para a página 8
+        // Remove a classe de fundo padrão e define o fundo dinâmico
         document.body.className = ""; 
         document.body.style.background = `url('${result.fundo}') no-repeat center center fixed`;
         document.body.style.backgroundSize = "cover";
-        // Cria o botão com o link
         const btn = document.createElement("a");
         btn.href = baseUrl + result.code;
         btn.target = "_blank";
@@ -396,7 +390,6 @@
       console.log("Indo para a página " + pageNumber);
       document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
       document.getElementById('page' + pageNumber).classList.add('active');
-      // Se for a página 7, aguarda 4 segundos e depois gera o resultado e vai para a página 8
       if (pageNumber === 7) {
         setTimeout(() => {
           goToPage(8);
@@ -405,7 +398,6 @@
       }
     }
 
-    // Funções para salvar respostas e avançar
     function saveNameAndGoToPage(pageNumber) {
       const nameInput = document.getElementById("userName").value;
       if (nameInput.trim() === "") {
@@ -447,12 +439,6 @@
       challenge = challengeElement.value;
       goToPage(pageNumber);
     }
-
-    // Variáveis globais
-    let userName = "";
-    let age = "";
-    let skinType = "";
-    let challenge = "";
   </script>
 </body>
 </html>
